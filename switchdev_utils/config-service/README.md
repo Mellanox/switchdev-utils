@@ -44,10 +44,11 @@ list of linux bond objects which need to be created and configured
 List of ovs bridges which need to be created and configured  
     - name: The name of ovs bridge  
     - ports: List of ovs bridge ports (a subset of sriov pfs or linux bonds)  
-**Note:**
+
+**Note:**  
   - Configure mtu for sriov_pf will be ignored if sriov_pf is a bond slave
   - Configure mtu for bond interface will configure it to its slaves
-  - Configure mtu for sriov_pf will set it to the brdige if sriov_pf is ovs port
+  - Configure mtu for sriov_pf will set it to the bridge if sriov_pf is ovs port
 
 ## Install  
 Prepare your own config.yaml file with all the configuration you need and pass it to installation script or you can copy it directly to `/etc/switchdev-config/config.yaml` before execution  

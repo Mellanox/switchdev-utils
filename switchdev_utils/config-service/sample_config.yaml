@@ -13,20 +13,21 @@ pfs:
     numOfVfs: 8
     switchdev: True
     vfTrust: True
-    mtu: 9000
   - name: ens1f1
     numOfVfs: 8
     switchdev: True
     vfTrust: True
-    mtu: 9000
 linuxBonds:
   - name: bond0
     slaves: [ens2f0, ens2f1]
     bondingOptions: "mode=802.3ad miimon=100 lacp_rate=fast xmit_hash_policy=layer2+3"
     mtu: 9000
-
+  - name: bond1
+    slaves: [ens1f0, ens1f1]
+    bondingOptions: "mode=802.3ad miimon=100 lacp_rate=fast xmit_hash_policy=layer2+3"
+    mtu: 9000
 ovsBridges:
   - name: br0
-    ports:  [bond0]
+    ports: [bond0]
   - name: br1
-    ports: [ens1f0]
+    ports: [bond1]
