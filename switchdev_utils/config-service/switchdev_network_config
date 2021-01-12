@@ -566,7 +566,7 @@ def validate_config(config):
         logger.debug("Provided configuration version newer, new functionality"
                      " may not be handled by this script")
 
-    for sriov_pf in config.get("pfs"):
+    for sriov_pf in config.get("pfs", []):
         if sriov_pf.get("name"):
             sriov_pfs_list.append(sriov_pf.get("name"))
         else:
@@ -590,7 +590,7 @@ def validate_config(config):
                 logger.error("mtu %s must be number" % sriov_pf.get("mtu"))
                 raise value_err
 
-    for bond in config.get("linuxBonds"):
+    for bond in config.get("linuxBonds", []):
         if bond.get("name"):
             bonds_list.append(bond.get("name"))
         else:
@@ -616,7 +616,7 @@ def validate_config(config):
             except ValueError as value_err:
                 logger.error("mtu %s must be number" % bond.get("mtu"))
                 raise value_err
-    for bridge in config.get("ovsBridges"):
+    for bridge in config.get("ovsBridges", []):
         if not bridge.get("name"):
             err = "bridge name must be provided"
             logger.error(err)
@@ -663,10 +663,10 @@ def main(argv=sys.argv):
     opts = parse_opts(argv)
     config = get_config()
     validate_config(config)
-    sriov_pfs = config.get("pfs")
-    bonds = config.get("linuxBonds")
-    bridges = config.get("ovsBridges")
-    hw_offload_enabled = config.get("hwOffloadEnabled")
+    sriov_pfs = config.get("pfs", [])
+    bonds = config.get("linuxBonds", [])
+    bridges = config.get("ovsBridges", [])
+    hw_offload_enabled = config.get("hwOffloadEnabled", False)
 
     if (not opts.sriov_config and not opts.sriov_bind):
         # Running switchdev network config for the first time
